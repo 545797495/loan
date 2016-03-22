@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Q房网金融 - Q时贷</title>
+    <link rel="stylesheet" type="text/css" href="css/page.css" />
+  </head>
+
+  <body>
+    <div class="sroller-div" id="wrapper">
+      <div class="scroller">
+        <!--banner start-->
+        <header id="slideBox" class="slide-box">
+          <div class="bd">
+            <ul>
+              <li>
+                <a href="#"><img src="img/test/index_banner1.jpg"></a>
+              </li>
+              <li>
+                <a href="#"><img src="img/test/index_banner1.jpg"></a>
+              </li>
+              <li>
+                <a href="#"><img src="img/test/index_banner1.jpg"></a>
+              </li>
+              <li>
+                <a href="#"><img src="img/test/index_banner1.jpg"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="hd tc">
+            <ul>
+              <li class="on">1</li>
+              <li class="">2</li>
+              <li class="on">3</li>
+              <li class="">4</li>
+            </ul>
+          </div>
+        </header>
+        <!--banner end-->
+        <!--nav start-->
+        <nav class="apply-box block-box clearfix">
+          <div class="apply-fl fl">
+            <h1 class="c-333">新房首付贷</h1>
+            <p>购买新房首付不够,使用新房首付贷</p>
+          </div>
+          <a href="apply.html" class="apply-btn tc fr">申请入口</a>
+        </nav>
+        <!--nav end-->
+        <!--house-list start-->
+        <header class="basic-head block-box"><a class="clearfix " href="cooperation_pro.html">Q时贷合作项目  <i class="icon icon-more fr"></i></a></header>
+        <ul class="pro-list" id="proList">
+          <!--<li>
+            <a class="clearfix" href="housing_details.html">
+              <img class="list-img" src="img/test/list.jpg">
+              <div class="list-info fl">
+                <h3>英之皇中心城</h3>
+                <p>80-140²</p>
+                <p>广东惠州惠阳淡水东华大道</p>
+                <p class="f-imp">7600元/m²</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="clearfix" href="#">
+              <img class="list-img" src="img/test/list.jpg">
+              <div class="list-info fl">
+                <h3>英之皇中心城</h3>
+                <p>80-140²</p>
+                <p>广东惠州惠阳淡水东华大道</p>
+                <p class="f-imp">7600元/m²</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="clearfix" href="#">
+              <img class="list-img" src="img/test/list.jpg">
+              <div class="list-info fl">
+                <h3>英之皇中心城</h3>
+                <p>80-140²</p>
+                <p>广东惠州惠阳淡水东华大道</p>
+                <p class="f-imp">7600元/m²</p>
+              </div>
+            </a>
+          </li>-->
+        </ul>
+        <!--house-list end-->
+        <div id="pullUp" class="pull-down tc">
+          <i class="icon icon-down"></i><span class="pullUpLabel">上拉更新</span>
+        </div>
+        <p class="tc list-tips" id="listTip">没有更多了</p>       
+      </div>
+    </div>
+    <script src="js/jquery-2.0.0.min.js"></script>
+    <script src="vendors/iscroll.min.js"></script>
+    <script src="vendors/TouchSlide.1.1.js"></script>
+    <script src="js/page.js"></script>
+    <script type="text/javascript">
+      TouchSlide({
+        slideCell: '#slideBox',
+        titCell: '.hd ul',
+        mainCell: '.bd ul',
+        effect: 'leftLoop',
+        autoPage: true,
+        autoPlay: true //自动播放
+      });
+      //初始化绑定iScroll控件  
+      document.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+      }, false);
+      document.addEventListener('DOMContentLoaded', loaded, false);
+      var myScroll, obj, el,
+        pullUpEl, pullUpOffset
+      generatedCount = 0;
+      /*json数据*/
+      var datas = {
+        'status': 'ok',
+        'list': [{
+          'page': 0,
+          'datass': [{
+            'hname': '英之皇中心城00',
+            'hprice': '7600'
+          }, {
+            'hname': '英之皇中心城01',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城02',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城03',
+            'hprice': '1312314'
+          }]
+        }, {
+          'page': 1,
+          'datass': [{
+            'hname': '英之皇中心城10',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城11',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城12',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城13',
+            'hprice': '1312314'
+          }]
+        }, {
+          'page': 2,
+          'datass': [{
+            'hname': '英之皇中心城20',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城21',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城21',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城22',
+            'hprice': '1312314'
+          }]
+        }]
+      };
+      /*里面的一些参数 后台根据ajax返回值名称更新*/
+      function getList(obj) {
+        var htmls = '<li><a class="clearfix" href="housing_details.html"><img class="list-img" src="img/test/list.jpg"><div class="list-info fl"><h3>' + obj.hname + '</h3><p>80-140²</p><p>广东惠州惠阳淡水东华大道</p><p class="f-imp">7600元/m²</p></div></a></li>';
+        return htmls;
+      }
+
+      function queryList(page, el) {
+        /*ajax*/
+        /* $.ajax({
+           type: "get",
+           url: "",             
+           data: {
+             page:  page
+           },
+           dataType: "json",
+           success: function(data) {
+             
+           }
+         });*/
+        /*ajax*/
+        /*搜索条件查到的值 后台进入ajax页面 需要检测有无搜索值 后台按需改变名称,后台页码要是从1开始的话记得改queryList(0, $('#proList'));和generatedCount的初始值*/
+        var queryData = getQuery('house');
+        var count = 0; /*记录页码匹配0 1 如果一次返回一页数据不需要*/
+        /*里面的一些参数 后台根据ajax返回值名称更新 datas的话 是 传page值过去返回的 这里由于我是静态数据模拟的是一次性返回 后台按需更新下面代码 把page传入ajax返回数据*/
+        if (datas) { /*此处判断有没有列表数据 改成相应的列表数据属性*/
+          $.each(datas.list, function(idx, obj) {
+            if (obj.page == page) {
+              /*如果后台是返回单页数据 直接只要下面的循环即可 tag就是列表数据属性名*/
+              var tag = obj.datass;
+              $.each(tag, function(idx, obj) {
+                var htmls = getList(tag[idx]);
+                el.append(htmls);
+              });
+              count++; /*记录页码匹配0 1 如果一次返回一页数据不需要*/
+            }
+          });
+        } else {
+          $('#pullUp').hide();
+          if (page == 0) {
+            $('#listTip').text('没有符合条件的项目');
+          } else {
+            $('#listTip').text('没有更多了');
+          }
+          $('#listTip').show();
+        }
+        /*记录页码匹配0 1 如果一次返回一页数据不需要*/
+        if (count == 0) {
+          $('#listTip').text('没有更多了');
+          $('#pullUp').hide();
+          $('#listTip').show();
+        }
+      }
+      /*进页面第一次加载*/
+      queryList(0, $('#proList'));
+      /*上拉加载*/
+      function pullUpAction() {
+        var el = $('#proList');
+        setTimeout(function() {
+          var li, i;
+          generatedCount++;
+          /*传页码*/
+          queryList(generatedCount, el);
+          myScroll.refresh();
+        }, 1000);
+      }
+    </script>
+  </body>
+
+</html>

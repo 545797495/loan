@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Q房网金融 - Q时贷</title>
+    <link rel="stylesheet" type="text/css" href="css/page.css" />
+  </head>
+
+  <body>
+    <!--intro start-->
+    <section class="house-introBox" style="padding:0.25rem 0.16rem 0.4rem 0.16rem">
+      万科九龙山楼盘,噪音有一些,交通一般般,品牌开发商地段升值空间大品牌开发品牌开发品牌开发品牌开发品牌开发品牌开发品牌开发品牌开发噪音有一些,交通一般般,噪音有一些,交通一般般,品牌开发商地段升值空间大品牌开发品牌开发品牌开发品牌开发品牌开发品牌开发品牌开发品牌开发噪音有一些,交通一般般,噪音有一些,交通一般般,品牌开发商地段升牌开发品牌开发品牌开发品牌开发品牌开发品牌开发品牌开发品牌开发噪音有一些,交通一般般,
+    </section>
+    <!--intro end-->
+    <!--form-->
+    <section class="form-outbox block-box" id="applyForm">
+      <!--select-->
+      <div class="from-item from-rstype relative">
+        <lable class="main-abl">物业类型</lable>
+        <div class="relative sel-box tr">
+          <span id="selectValue"></span>
+          <select id="cityName" class="main-sel">
+            <option>选择城市</option>
+            <option>深圳</option>
+            <option>惠州</option>
+            <option>佛山</option>
+            <option>东莞</option>
+          </select>
+        </div>
+        <span class="main-abr"><i class="icon icon-more"></i></span>
+      </div>
+      <!--select-->
+      <!---->
+      <div class="from-item relative">
+        <lable class="main-abl">楼盘</lable>
+        <input class="main-input tr" type="text" placeholder="输入楼盘名" id="houseName">
+      </div>
+      <!---->
+      <!---->
+      <div class="from-item relative from-rtype">
+        <lable class="main-abl">申请金额</lable>
+        <input class="main-input tr" type="number" placeholder="输入1-200之间的数字" id="applyAmount">
+        <span class="main-abr">万元</span>
+      </div>
+      <!---->
+      <!---->
+      <div class="from-item relative">
+        <lable class="main-abl">真实姓名</lable>
+        <input class="main-input tr" type="text" placeholder="请填写借款人真实姓名" id="peopleName">
+      </div>
+      <!---->
+      <!---->
+      <div class="from-item relative">
+        <lable class="main-abl">手机号码</lable>
+        <input class="main-input tr" type="tel" placeholder="请填写借款人手机号码" id="peoplePhone">
+      </div>
+      <!---->
+    </section>
+    <!--form-->
+    <!--fix 空div-->
+    <div class="fix-eblock"></div>
+    <!--fix 空div-->
+    <!--btnlist start-->
+    <footer class="fix-btnBox tc clearfix">
+      <a class="bg-f08" href="javascript:;" style="width:100%" id="applyCheck">提交申请</a>
+    </footer>
+
+    <!--btnlist end-->
+    <script src="js/jquery-2.0.0.min.js"></script>
+    <script src="js/page.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        /*输入整数*/
+        inputCheck('#applyAmount', 0);
+        /*选择框*/
+        $('#cityName').on('change', function() {
+          $('#selectValue').text($(this).val());
+        }).trigger('change');
+        /*表单提交验证表单校验条件：
+除了楼盘名，其他都是必填，
+城市是选择的，
+申请金额1-200的数字
+手机号码11位 出错的提示：
+请选择城市
+请输入1-200的数字
+姓名不能为空
+请填写正确手机号码
+*/
+        $('#applyCheck').on('click', function() {
+          var cityName = $('#selectValue').text();
+          var houseName = $('#houseName').val();
+          var applyAmount = $('#applyAmount').val();
+          var peopleName = $('#peopleName').val();
+          var peoplePhone = $('#peoplePhone').val();
+          if (cityName == '选择城市') {
+            var htmls = '<p class="dialog-head">请选择城市</p></p>';
+            dialog({
+              content: htmls,
+              buttons: [{
+                text: '确认',
+                myClassName: 'okbtn',
+              }]
+            });
+            return;
+          }
+          if ((!applyAmount) || !(applyAmount >= 1 && applyAmount <= 200)) {
+            var htmls = '<p class="dialog-head">请输入1-200的数字</p>';
+            dialog({
+              content: htmls,
+              buttons: [{
+                text: '确定',
+                myClassName: 'okbtn',
+                callback: function(dd) {
+                  dd(); /*关闭弹出框函数*/
+                  $('#applyAmount').focus();
+                }
+              }]
+            });
+            /*无用了*/
+            $('#applyAmount').focus();
+            return;
+          }
+          if (!peopleName) {
+            var htmls = '<p class="dialog-head">姓名不能为空</p></p>';
+            dialog({
+              content: htmls,
+              buttons: [{
+                text: '确认',
+                myClassName: 'okbtn',
+                callback: function(dd) {
+                  dd();
+                  $('#peopleName').focus();
+                }
+              }]
+            });
+            return;
+          }
+          var phoneformat = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1})|(88[0-9]{1}))+\d{8})$/;
+          if (!phoneformat.test(peoplePhone)) {
+            var htmls = '<p class="dialog-head">请填写正确手机号码</p>';
+            dialog({
+              content: htmls,
+              buttons: [{
+                text: '确认',
+                myClassName: 'okbtn',
+                callback: function(dd) {
+                  dd();
+                  $('#peoplePhone').focus();
+                }
+              }]
+            });
+            return;
+          }
+          var data = {
+            'city': cityName,
+            'house': houseName,
+            'applyAmount': applyAmount,
+            'peopleName': peopleName,
+            'peoplePhone': peoplePhone
+          };
+          /* console.log(data);*/
+          /*在ajax成里面弹出以及清空数据*/
+          var sus = '<p class="dialog-head">提交成功</p></p>工作人员会很快与您联系</p>';
+          dialog({
+            content: sus,
+            buttons: [{
+              text: '确认',
+              myClassName: 'okbtn',
+              callback: function(dd) {
+                dd();
+                $('#applyForm input').val('');
+                $('#selectValue').text('选择城市');
+              }
+            }]
+          });
+          /*在ajax成里面弹出以及清空数据*/
+        });
+      });
+    </script>
+  </body>
+
+</html>

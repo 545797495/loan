@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Q房网金融 - Q时贷</title>
+    <link rel="stylesheet" type="text/css" href="css/page.css" />
+
+  </head>
+  <style type="text/css" media="all">
+    #wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+    
+    .scroller {
+      position: absolute;
+      z-index: 2;
+      -webkit-touch-callout: none;
+      top: 0;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      width: 100%;
+      padding: 0;
+    }
+    
+    #scroller ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      text-align: left;
+    }
+    
+    #pullUp {
+      width: 100%;
+      font-size: 0.12rem;
+      line-height: 0.3rem;
+      color: #a5a5a5;
+      text-align: center;
+    }
+    
+    #pullUp .pullUpIcon {
+      background: url(img/arrow_down.png) no-repeat;
+      width: 0.08rem;
+      height: 0.11rem;
+      background-size: 0.08rem 0.11rem;
+      margin-right: 0.03rem;
+      margin-top: -0.02rem;
+      -webkit-transition-property: -webkit-transform;
+      -webkit-transition-duration: 250ms;
+      margin-right: 0.03rem;
+      margin-top: -0.02rem;
+    }
+    
+    @media only screen and (min-width: 310px) and (max-width: 359px) {
+      #pullUp .pullUpIcon {
+        background: url(../img/arrow_down.png) no-repeat;
+        width: 6px;
+        height: 9px;
+        background-size: 6px 9px;
+      }
+    }
+    
+    #pullDown .pullDownIcon {
+      -webkit-transform: rotate(0deg) translateZ(0);
+    }
+    
+    #pullUp .pullUpIcon {
+      -webkit-transform: rotate(-180deg) translateZ(0);
+    }
+    
+    #pullDown.flip .pullDownIcon {
+      -webkit-transform: rotate(-180deg) translateZ(0);
+    }
+    
+    #pullUp.flip .pullUpIcon {
+      -webkit-transform: rotate(0deg) translateZ(0);
+    }
+    
+    #pullDown.loading .pullDownIcon,
+    #pullUp.loading .pullUpIcon {
+      background-position: 0 100%;
+      -webkit-transform: rotate(0deg) translateZ(0);
+      -webkit-transition-duration: 0ms;
+      -webkit-animation-name: loading;
+      -webkit-animation-duration: 2s;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+    }
+    
+    @-webkit-keyframes loading {
+      from {
+        -webkit-transform: rotate(0deg) translateZ(0);
+      }
+      to {
+        -webkit-transform: rotate(360deg) translateZ(0);
+      }
+    }
+  </style>
+
+  <body>
+    <div class="sroller-div" id="wrapper">
+      <div class="scroller">
+        <!--nav start-->
+        <nav class="apply-box block-box clearfix">
+          <div class="apply-fl fl">
+            <h1 class="c-333">新房首付贷</h1>
+            <p>购买新房首付不够,使用新房首付贷</p>
+          </div>
+          <a href="apply.html" class="apply-btn tc fr">申请入口</a>
+        </nav>
+        <!--nav end-->
+        <!--house-list start-->
+        <div class="basic-head block-box"><a class="clearfix " href="cooperation_pro.html">Q时贷合作项目  <i class="icon icon-more fr"></i></a></div>
+        <ul class="pro-list" id="proList">
+          <li>
+            <a class="clearfix" href="housing_details.html">
+              <img class="list-img" src="img/test/list.jpg">
+              <div class="list-info fl">
+                <h3>英之皇中心城</h3>
+                <p>80-140²</p>
+                <p>广东惠州惠阳淡水东华大道</p>
+                <p class="f-imp">7600元/m²</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="clearfix" href="#">
+              <img class="list-img" src="img/test/list.jpg">
+              <div class="list-info fl">
+                <h3>英之皇中心城</h3>
+                <p>80-140²</p>
+                <p>广东惠州惠阳淡水东华大道</p>
+                <p class="f-imp">7600元/m²</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="clearfix" href="#">
+              <img class="list-img" src="img/test/list.jpg">
+              <div class="list-info fl">
+                <h3>英之皇中心城</h3>
+                <p>80-140²</p>
+                <p>广东惠州惠阳淡水东华大道</p>
+                <p class="f-imp">7600元/m²</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!--house-list end-->
+        <div id="pullUp" class="pull-down tc">
+          <span class="icon icon-down"></span><span class="pullUpLabel">上拉更新</span>
+        </div>
+        <p class="tc list-tips" id="listTip">没有更多了</p>
+      </div>
+    </div>
+    <!--  <div class="pull-down tc"><span>&darr;&nbsp;</span>上拉更新</div>-->
+    <script src="js/jquery-2.0.0.min.js"></script>
+    <script src="js/page.js"></script>
+    <script src="js/iscroll.min.js"></script>
+
+    <script type="text/javascript">
+      var myScroll, obj, el,
+        pullUpEl, pullUpOffset
+      generatedCount = 0;
+      /*json数据*/
+      var datas = {
+        'status': 'ok',
+        'list': [{
+          'page': 0,
+          'datass': [{
+            'hname': '英之皇中心城',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城2',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城3',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城4',
+            'hprice': '1312314'
+          }]
+        }, {
+          'page': 1,
+          'datass': [{
+            'hname': '英之皇中心城1',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城1',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城1',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城1',
+            'hprice': '1312314'
+          }]
+        }, {
+          'page': 2,
+          'datass': [{
+            'hname': '英之皇中心城2',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城2',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城2',
+            'hprice': '1312314'
+          }, {
+            'hname': '英之皇中心城2',
+            'hprice': '1312314'
+          }]
+        }]
+      };
+      /*里面的一些参数 后台根据ajax返回值名称更新*/
+      function getList(obj) {
+        var htmls = '<li><a class="clearfix" href="housing_details.html"><img class="list-img" src="img/test/list.jpg"><div class="list-info fl"><h3>' + obj.hname + '</h3><p>80-140²</p><p>广东惠州惠阳淡水东华大道</p><p class="f-imp">7600元/m²</p></div></a></li>';
+        return htmls;
+      }
+
+      function pullUpAction() {
+        var el = $('#proList');
+        setTimeout(function() {
+          var li, i;
+          generatedCount++;
+          /*里面的一些参数 后台根据ajax返回值名称更新*/
+          for (i = 0; i < datas.list.length; i++) {
+            console.log(generatedCount + '---' + datas.list[i].page);
+            if (datas.list[i].page == generatedCount) {
+              var tag = datas.list[i].datass;
+              for (i = 0; i < tag.length; i++) {
+                var htmls = getList(tag[i]);
+                el.append(htmls);
+              }
+              findTag = true;
+            } else {
+              findTag = false;
+            }
+          }
+          if (!findTag) {
+            $('#pullUp').hide();
+            $('#listTip').show();
+          }
+          myScroll.refresh();
+        }, 1000);
+      }
+
+      function loaded() {
+        pullUpEl = document.getElementById('pullUp');
+        pullUpOffset = pullUpEl.offsetHeight;
+        myScroll = new iScroll('wrapper', {
+          useTransition: true,
+          onRefresh: function() {
+            if (pullUpEl.className.match('loading')) {
+              pullUpEl.className = '';
+              pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉更新';
+            }
+          },
+          onScrollMove: function() {
+            if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+              pullUpEl.className = 'flip';
+              pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉更新';
+              this.maxScrollY = this.maxScrollY;
+            } else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+              pullUpEl.className = '';
+              pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉更新';
+              this.maxScrollY = pullUpOffset;
+            }
+          },
+          onScrollEnd: function() {
+            if (pullUpEl.className.match('flip')) {
+              pullUpEl.className = 'loading';
+              pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中';
+              pullUpAction(el);
+            }
+          }
+        });
+        setTimeout(function() {
+          document.getElementById('wrapper').style.left = '0';
+        }, 800);
+      }
+      //初始化绑定iScroll控件  
+      document.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+      }, false);
+      document.addEventListener('DOMContentLoaded', loaded, false);
+    </script>
+
+  </body>
+
+</html>

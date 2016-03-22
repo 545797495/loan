@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Q房网金融 - Q时贷</title>
+    <link rel="stylesheet" type="text/css" href="vendors/autocomplete/jquery.autocomplete.css" />
+    <link rel="stylesheet" type="text/css" href="css/page.css" />
+  </head>
+
+  <body style="background: #fff;">
+    <!--search start-->
+    <div class="search-Box" id="searchBox">
+
+      <!--search-->
+      <div class="search-inbox">
+        <i class="icon icon-search"></i>
+        <input type="text" id="searchInput" placeholder="请输入楼盘名、地铁、开发商或商圈..." />
+        <input type="hidden" name="" id="house" />
+      </div>
+      <a href="javascript:;" class="s-cancel" id="queryCancel">取消</a>
+    </div>
+    <!--如果用其他插件 静态样式如下-->
+    <div class="suggestions" style="display: none;">
+      <div class="suggestion"><strong>新</strong>洲二手房</div>
+      <div class="suggestion"><strong>新</strong>洲二手房1</div>
+    </div>
+    <!--end start-->
+    <script src="js/jquery-2.0.0.min.js"></script>
+    <script src="vendors/autocomplete/jquery.autocomplete.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $('#queryCancel').on('click', function() {
+          history.go(-1);
+        });
+        /*静态模拟数据*/
+        var house = [{
+          value: '新洲二手房',
+          data: '1'
+        }, {
+          value: '新界东二手房',
+          data: '2'
+        }, {
+          value: '新界西二手房',
+          data: '1'
+        }, {
+          value: '新洲二手房',
+          data: '1'
+        }, {
+          value: '新界东二手房',
+          data: '2'
+        }, {
+          value: '新界西二手房',
+          data: '1'
+        }, {
+          value: '新洲二手房',
+          data: '1'
+        }, {
+          value: '新界东二手房',
+          data: '2'
+        }, {
+          value: '新界西二手房',
+          data: '1'
+        }, {
+          value: '新界东二手房',
+          data: '2'
+        }, {
+          value: '新界西二手房',
+          data: '1'
+        }, {
+          value: '新界东二手房',
+          data: '2'
+        }, {
+          value: '新界西二手房',
+          data: '1'
+        }, {
+          value: '新界东二手房',
+          data: '2'
+        }, {
+          value: '新界西二手房',
+          data: '1'
+        }, {
+          value: '新安二手房',
+          data: '2'
+        }];
+        /*下拉框的高度*/
+        var maxHeight = $(window).height() - $('#searchBox').height();
+        if (maxHeight < 300) {
+          maxHeight = 400;
+        }
+        /*详细用法可参考https://github.com/devbridge/jQuery-Autocomplete 
+         Ajax lookup:
+            $('#autocomplete').autocomplete({
+              serviceUrl: '/autocomplete/countries',
+              onSelect: function (suggestion) {
+                alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+              }
+          });*/
+        $('#searchInput').autocomplete({
+          zIndex: 99999999,
+          lookup: house,
+          width: '100%',
+          maxHeight: maxHeight,
+          onSelect: function(suggestion) {
+            location.href = 'cooperation_pro.html?house=' + suggestion.value;
+            $('#house').val(suggestion.value);
+          }
+        });
+      })
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+    <style type="text/css">
+      /* css 重置 */
+      /* 本例子css -------------------------------------- */    
+      .slide-box {
+        position: relative;
+        overflow: hidden;     
+        max-width:100%;
+        /* 设置焦点图最大宽度 */
+      }      
+      .slide-box .hd {
+        position: absolute;
+        height:0.27rem;
+        line-height: 0.27rem;
+        bottom: 0;
+        width:100%;
+        z-index: 1;
+      }
+      
+      .slide-box .hd li{
+        display: inline-block;
+        width:8px;
+        height:8px;
+       /* border:1px solid #9e8c6f;*/
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        background: #ffedd0;
+        text-indent: -9999px;
+        overflow: hidden;
+        margin: 0 3px;
+      }
+      
+      .slide-box .hd li.on {
+        background: #ff5500;
+      }
+      
+      .slide-box .bd {
+        position: relative;
+        z-index: 0;
+      }      
+      .slide-box .bd li {
+        position: relative;
+        text-align: center;
+      }      
+      .slide-box .bd li img {      
+        vertical-align: top;
+        width: 100%;      
+      }
+    </style>
+ 
+  </head>
+
+  <body>
+    <div id="slideBox" class="slide-box">
+
+      <div class="bd">
+       
+          <ul>
+            <li>
+              <a class="pic" href="#"><img src="img/index_banner1.jpg"></a>
+            </li>
+            <li>
+              <a class="pic" href="#"><img src="img/index_banner1.jpg"></a>
+            </li>
+          </ul>
+        
+      </div>
+
+      <div class="hd tc">
+        <ul>
+          <li class="">1</li>
+          <li class="">2</li>
+          <li class="on">3</li>
+          <li class="">4</li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="js/jquery-2.0.0.min.js"></script>
+    <script src="js/page.js"></script>
+    <script src="js/TouchSlide.1.1.js"></script>
+    <script type="text/javascript">
+      TouchSlide({
+        slideCell: "#slideBox",
+        titCell: ".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+        mainCell: ".bd ul",
+        effect: "leftLoop",
+        autoPage: true, //自动分页
+        autoPlay: true //自动播放
+      });
+    </script>
+  </body>
+
+</html>
